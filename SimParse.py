@@ -5,3 +5,19 @@ class SimParse:
     def __init__(self, directory):
         self.directory = directory
 
+    def parse_dir(self, glob_pattern):
+        from skimage import io
+        import glob
+        import os
+        import numpy as np
+
+        files = glob.glob(os.path.join(self.directory, glob_pattern))
+        array_list = []
+        for file in files:
+            im_array = io.imread(file, as_gray=True)
+            array_list.append(im_array)
+
+        im_stack = np.stack(array_list)
+        return im_stack
+
+
